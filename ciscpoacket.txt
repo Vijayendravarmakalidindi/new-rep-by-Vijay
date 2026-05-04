@@ -1,0 +1,169 @@
+
+## **Experiment 1: Basic Web Server Access**
+* **Full Question:** Create a network consisting of one PC, one Switch, and one Server. Assign static IP addresses to the devices and verify that the PC can successfully access the web server’s default homepage through its built-in web browser.
+* **Procedure:**
+    1.  **Place Devices:** Drag 1 **PC**, 1 **Switch (2960)**, and 1 **Server-PT** onto the workspace.
+    2.  **Cable Devices:** Select **Connections** (Lightning icon) > **Copper Straight-Through** (Solid black line).
+        * Connect PC (FastEthernet0) to Switch (FastEthernet0/1).
+        * Connect Server (FastEthernet0) to Switch (FastEthernet0/2).
+    3.  **Configure Server:** Click Server > **Desktop** > **IP Configuration**. Set IP: `192.168.1.1` and Mask: `255.255.255.0`.
+    4.  **Configure PC:** Click PC > **Desktop** > **IP Configuration**. Set IP: `192.168.1.2` and Mask: `255.255.255.0`.
+    5.  **Test:** Click PC > **Desktop** > **Web Browser**. Type `192.168.1.1` and click **Go**.
+* **Expected Output:** The browser displays the "Welcome to Cisco Packet Tracer" web page.
+
+---
+
+## **Experiment 2: Wireless Router and DHCP Configuration**
+* **Full Question:** Design a network topology featuring a Wireless Router and two Laptops. Configure the wireless settings (SSID) on the router and ensure both laptops receive their IP addresses automatically via DHCP.
+* **Procedure:**
+    1.  **Place Devices:** Drag 1 **Wireless Router (WRT300N)** and 2 **Laptops** onto the workspace.
+    2.  **Configure Router:** Click Router > **GUI** tab. Under **Setup**, ensure DHCP is **Enabled**. Click **Wireless** tab > Change SSID to `HomeWiFi`. Click **Save Settings** at the bottom of the page.
+    3.  **Laptop Hardware Swap:** For both Laptops:
+        * Click Laptop > **Physical** tab.
+        * **Power Off** (click the yellow/red light button).
+        * Drag the Ethernet port (bottom right) to the list on the left to remove it.
+        * Drag the **WPC300N** module into the empty slot.
+        * **Power On** the laptop.
+    4.  **Connect Wireless:** Click Laptop > **Desktop** > **PC Wireless** > **Connect** tab. Click **Refresh**, select `HomeWiFi`, and click **Connect**.
+* **Expected Output:** Open Laptop **Command Prompt**, type `ipconfig`. You should see an IP address like `192.168.0.100`.
+
+---
+
+## **Experiment 3: Multi-PC Network and Ping Testing**
+* **Full Question:** Setup a network using 1 Switch, 3 PCs, and 1 Server. Configure unique IP addresses for all devices and perform a connectivity test by pinging the server from every PC.
+* **Procedure:**
+    1.  **Connect:** Place 1 Switch, 3 PCs, and 1 Server. Use **Copper Straight-Through** cables to connect all 4 devices to any available ports on the Switch.
+    2.  **Assign IPs:**
+        * Server: `10.0.0.1` (Mask `255.0.0.0`).
+        * PC0: `10.0.0.2`, PC1: `10.0.0.3`, PC2: `10.0.0.4`.
+    3.  **Test Ping:** Click PC0 > **Desktop** > **Command Prompt**. Type `ping 10.0.0.1`. Repeat for PC1 and PC2.
+* **Expected Output:** All pings show **"Reply from 10.0.0.1"** with 0% packet loss.
+
+---
+
+## **Experiment 4: Smart Home IoT Security**
+* **Full Question:** In a smart home environment using a Home Gateway, add a wireless Smart Door. Configure the security settings on the gateway using WPA2-PSK and ensure the door connects securely.
+* **Procedure:**
+    1.  **Place:** 1 **Home Gateway** and 1 **Smart Door**.
+    2.  **Gateway Security:** Click Gateway > **Config** > **Wireless**. Set SSID: `IoT_Secure`, Authentication: **WPA2-PSK**, Passphrase: `mySecretKey`.
+    3.  **Door Antenna Swap:** Click Door > **Advanced** button (bottom right) > **I/O Config**. Change Network Adapter to `PT-IOT-NM-1W` (Wireless).
+    4.  **Connect Door:** Click **Config** tab > **Wireless0**. Set SSID: `IoT_Secure`, select **WPA2-PSK**, and enter Passphrase: `mySecretKey`.
+    5.  **IoT Settings:** In Door > **Config** > **Settings**, change **IoT Server** to **Home Gateway**.
+* **Expected Output:** A dashed wireless line appears between the door and gateway.
+
+---
+
+## **Experiment 5: PDU Simulation & Traffic Analysis**
+* **Full Question:** Create a PDU-based simulation between a PC and a server through a switch. Use the "Capture/Forward" tool to trace the path of ICMP packets.
+* **Procedure:**
+    1.  Build the network from Exp 1. Click the **Simulation** icon (bottom right).
+    2.  Click **Simple PDU** (closed envelope) > Click PC (Source) > Click Server (Destination).
+    3.  Click **Capture/Forward** (Play button with arrow) repeatedly.
+* **Expected Output:** You see the envelope move to the switch, then server, then return to the PC. A green checkmark appears.
+
+---
+
+## **Experiment 6: Internet Edge & DNS Testing**
+* **Full Question:** Build a network with a wireless router, cable modem, cloud, and server. Configure settings and verify a PC can resolve "cisco.com".
+* **Procedure:**
+    1.  **Cable:**
+        * Router (Internet port) $\rightarrow$ Modem (Port 1) [Straight-Through].
+        * Modem (Port 0) $\rightarrow$ Cloud (Coaxial) [Coaxial Cable].
+        * Cloud (Ethernet) $\rightarrow$ Server [Straight-Through].
+    2.  **Cloud Config:** Click Cloud > **Config** > **Connections** > **Cable**. Select `Coaxial` and `Ethernet`, then click **Add**.
+    3.  **Server:** IP `208.67.220.220`. Services > **DNS** > **On**. Add name `cisco.com` pointing to `208.67.220.220`.
+    4.  **PC:** In **IP Configuration**, set DNS Server to `208.67.220.220`.
+* **Expected Output:** PC Browser loads `cisco.com` successfully.
+
+---
+
+## **Experiment 7: Complex PDU Scheduling**
+* **Full Question:** Configure a complex PDU to send ping requests from one PC to another every 10 seconds.
+* **Procedure:**
+    1.  Place 2 PCs and 1 Switch. Connect them and give them IPs `1.1` and `1.2`.
+    2.  **Simulation Mode:** Click **Complex PDU** (open envelope) > Click PC0.
+    3.  **Settings:** Destination: `192.168.1.2`, PDU Settings: **Ping**, Simulation Settings: **Periodic**, Interval: **10**.
+* **Expected Output:** A new envelope appears at PC0 every 10 seconds in the simulation timeline.
+
+---
+
+## **Experiment 8: Wired IoT Integration**
+* **Full Question:** Set up a smart home network with a Home Gateway and Tablet. Add a wired Lawn Sprinkler and confirm it registers.
+* **Procedure:**
+    1.  **Cable:** Connect **Lawn Sprinkler** $\rightarrow$ **Home Gateway** [Copper Straight-Through].
+    2.  **Sprinkler:** Config > **Settings** > IoT Server: **Home Gateway**.
+    3.  **Tablet:** Connect Tablet to Gateway via Wireless. Open Browser > `192.168.25.1` (login: `admin/admin`).
+* **Expected Output:** Sprinkler appears in the Tablet's IoT list.
+
+---
+
+## **Experiment 9: Dual Server Topology**
+* **Full Question:** Build a topology with 1 PC, 1 Switch, and 2 servers. Test connectivity to both.
+* **Procedure:**
+    1.  Connect 1 PC and 2 Servers to 1 Switch using **Straight-Through** cables.
+    2.  IPs: PC (`.5`), Server1 (`.10`), Server2 (`.11`).
+* **Expected Output:** PC can successfully ping both `.10` and `.11`.
+
+---
+
+## **Experiment 10: Hardware Module Swap (Laptop)**
+* **Full Question:** Swap hardware modules to enable wireless on a laptop and verify connection quality.
+* **Procedure:**
+    1.  Place Laptop and Wireless Router.
+    2.  **Hardware Swap:** Laptop > Physical > Power Off > Remove Ethernet > Add **WPC300N** > Power On.
+    3.  **Connect:** Desktop > **PC Wireless** > Connect to Router SSID.
+* **Expected Output:** The **Link Information** tab shows signal strength bars.
+
+---
+
+## **Experiment 11: Basic Routing**
+* **Full Question:** Configure a router to enable communication between two different subnets.
+* **Procedure:**
+    1.  **Cable:** PC0 $\rightarrow$ Router G0/0; PC1 $\rightarrow$ Router G0/1.
+    2.  **Router CLI:**
+        * `interface g0/0` $\rightarrow$ `ip address 192.168.1.1 255.255.255.0` $\rightarrow$ `no shutdown`.
+        * `interface g0/1` $\rightarrow$ `ip address 192.168.2.1 255.255.255.0` $\rightarrow$ `no shutdown`.
+    3.  **PCs:** Set PC0 Gateway to `1.1`. Set PC1 Gateway to `2.1`.
+* **Expected Output:** PC0 can ping PC1 across the router.
+
+---
+
+## **Experiment 12: IoT Server Migration**
+* **Full Question:** Move an IoT device from a local Home Gateway to a Remote Server.
+* **Procedure:**
+    1.  **Server:** IP `192.168.25.10`. Services > **IoT** > **On**. Create account via Web Browser (`127.0.0.1`).
+    2.  **Device:** Config > **Settings** > Change to **Remote Server**. Enter Server IP `192.168.25.10` and your login.
+* **Expected Output:** Device appears on the Server's IoT dashboard.
+
+---
+
+## **Experiment 13: Interconnected Switches**
+* **Full Question:** Interconnect two switches and verify connectivity between 6 PCs.
+* **Procedure:**
+    1.  Place 2 Switches. Connect them using a **Copper Cross-over** cable (dashed line).
+    2.  Connect 3 PCs to each switch. IPs: `1.1` to `1.6`.
+* **Expected Output:** PC on Switch 0 can ping PC on Switch 1.
+
+---
+
+## **Experiment 14: Centralized DHCP & DNS Services**
+* **Full Question:** Configure a server to act as both DHCP and DNS server.
+* **Procedure:**
+    1.  **Cable:** Server $\rightarrow$ Switch $\rightarrow$ PC [Straight-Through].
+    2.  **Server IP:** `192.168.1.1`.
+    3.  **Server Services:**
+        * **DHCP:** On, DNS Server: `1.1`, Start IP: `.10` > **Save**.
+        * **DNS:** On, Name: `cisco.com`, IP: `1.1` > **Add**.
+    4.  **PC:** IP Configuration > Select **DHCP**.
+* **Expected Output:** PC gets an IP and browser opens `cisco.com`.
+
+---
+
+## **Experiment 15: IoT Management & Interface Monitoring**
+* **Full Question:** Build a smart home with 3 devices and monitor them on a Tablet.
+* **Procedure:**
+    1.  **Place:** Gateway, Tablet, Fan, Lamp, Door.
+    2.  **Swap:** Give Fan, Lamp, Door, and Tablet wireless antennas (**WPC300N** or **PT-IOT-NM-1W**).
+    3.  **Register:** Set all 3 to **Home Gateway** in their Settings.
+    4.  **Tablet:** Browser > `192.168.25.1` (admin/admin).
+* **Expected Output:** Tablet browser lists Fan, Lamp, and Door.
